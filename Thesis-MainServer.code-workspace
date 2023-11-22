@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"workbench.preferredLightColorTheme": "Eva Light",
+		"workbench.colorTheme": "Eva Dark",
+		"workbench.preferredDarkColorTheme": "Eva Dark"
+	}
+}
