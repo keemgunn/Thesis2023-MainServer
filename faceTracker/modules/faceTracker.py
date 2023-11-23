@@ -9,12 +9,18 @@ import time
 MARGIN_X, MARGIN_Y = 300, 50
 OFFSET_X, OFFSET_Y = 0, 0
 
+SHARPNESS = 100
+CONTRAST = 100
+
+DETECTION_CONFIDENCE = 0.5
+TRACKING_CONFIDENCE = 0.5
+
 
 #### Initialize mediapipe ####
 
 # For facemesh
 mp_face_mesh = mp.solutions.face_mesh
-face_mesh = mp_face_mesh.FaceMesh(min_detection_confidence=0.5, min_tracking_confidence=0.5)
+face_mesh = mp_face_mesh.FaceMesh(min_detection_confidence=DETECTION_CONFIDENCE, min_tracking_confidence=TRACKING_CONFIDENCE)
 
 # For drawing landmarks
 mp_drawing = mp.solutions.drawing_utils
@@ -32,6 +38,10 @@ roi_x_min, roi_x_max = MARGIN_X, img_w - MARGIN_X
 roi_y_min, roi_y_max = MARGIN_Y, img_h - MARGIN_Y
 roi_w = roi_x_max - roi_x_min
 roi_h = roi_y_max - roi_y_min
+
+#### Adjusting camera properties ####
+cap.set(cv2.CAP_PROP_SHARPNESS, SHARPNESS)
+cap.set(cv2.CAP_PROP_CONTRAST, CONTRAST)
 
 
 
@@ -72,7 +82,6 @@ while cap.isOpened():
     face_3d, face_2d = [], []
     
     
-    
     #### Crop the image for Face Tracking ####
     roi = image[roi_y_min:roi_y_max, roi_x_min:roi_x_max]
     roi = cv2.cvtColor(cv2.flip(roi, 1), cv2.COLOR_BGR2RGB)
@@ -82,10 +91,8 @@ while cap.isOpened():
     roi = cv2.cvtColor(roi, cv2.COLOR_RGB2BGR)
     
     
-    
     #### Preprocess the Original Image ####
     image = cv2.flip(image, 1)
-    
     
 
     #### Draw Basic Info ####
@@ -97,16 +104,14 @@ while cap.isOpened():
 
 
 
-
     #### Main Face Tracking Process ####
     
     if results.multi_face_landmarks:
         for face_landmarks in results.multi_face_landmarks:
             for idx, lm in enumerate(face_landmarks.landmark):
-                # Get the coordinates (convert relative coordinates to absolute coordinates)
-                
                 if idx == 33 or idx == 263 or idx == 1 or idx == 61 or idx == 291 or idx == 199:
-                    if idx == 1:
+
+                    if idx == 1: # Face Landmark 1 (Nose)
                         nose_2d = (lm.x * roi_w, lm.y * roi_h)
                         nose_3d = (lm.x * roi_w, lm.y * roi_h, lm.z * 3000)
                         # Calculate the absolute coordinates
