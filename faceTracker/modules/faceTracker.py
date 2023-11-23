@@ -3,9 +3,12 @@ import mediapipe as mp
 import numpy as np
 import time
 
+# Import the create_osc_client function from the OSCclient module
+from .OSCclient import create_osc_client
 
 
-def run_face_tracker(margin_x, margin_y, offset_x, offset_y, sharpness, contrast, detection_confidence, tracking_confidence):
+
+def run_face_tracker(margin_x, margin_y, offset_x, offset_y, sharpness, contrast, detection_confidence, tracking_confidence, osc_client):
     #### Initialize mediapipe ####
     # For facemesh
     mp_face_mesh = mp.solutions.face_mesh
@@ -138,8 +141,15 @@ def run_face_tracker(margin_x, margin_y, offset_x, offset_y, sharpness, contrast
                 cv2.putText(roi, "- pos_y: " + str(pos_y), (10, 300), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
                 cv2.putText(roi, "- rel_x: " + str(rel_x), (10, 325), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
                 cv2.putText(roi, "- rel_y: " + str(rel_y), (10, 350), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+                
 
-            # Draw the landmarks
+            #### Send OSC message ####
+            osc_client.send_message("/face/position", [pos_x, pos_y])
+            osc_client.send_message("/face/relavantPosition", [rel_x, rel_y])
+            osc_client.send_message("/face/rotation", [rot_x, rot_y, rot_z])
+
+
+            #### Draw landmarks ####
             mp_drawing.draw_landmarks(
                         image=roi,
                         landmark_list=face_landmarks,
@@ -147,7 +157,7 @@ def run_face_tracker(margin_x, margin_y, offset_x, offset_y, sharpness, contrast
                         landmark_drawing_spec=drawing_spec,
                         connection_drawing_spec=drawing_spec)
 
-            # Frame rate calculation
+            #### Calculate FPS ####
             end = time.time()
             totalTime = end - start
             fps = 1 / totalTime
@@ -173,5 +183,10 @@ if __name__ == "__main__":
     CONTRAST = 100
     DETECTION_CONFIDENCE = 0.5
     TRACKING_CONFIDENCE = 0.5
+    
+    #### Setup OSC client ####
+    ip = "127.0.0.1"  # Replace with the OSC server IP
+    port = 8282       # Replace with the OSC server port
+    osc_client = create_osc_client(ip, port)
 
-    run_face_tracker(MARGIN_X, MARGIN_Y, OFFSET_X, OFFSET_Y, SHARPNESS, CONTRAST, DETECTION_CONFIDENCE, TRACKING_CONFIDENCE)
+    run_face_tracker(MARGIN_X, MARGIN_Y, OFFSET_X, OFFSET_Y, SHARPNESS, CONTRAST, DETECTION_CONFIDENCE, TRACKING_CONFIDENCE, osc_client)
