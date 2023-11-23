@@ -4,26 +4,12 @@ import numpy as np
 import time
 
 
-#### Define Constants ####
 
-MARGIN_X, MARGIN_Y = 300, 50
-OFFSET_X, OFFSET_Y = 0, 0
-
-SHARPNESS = 100
-CONTRAST = 100
-
-DETECTION_CONFIDENCE = 0.5
-TRACKING_CONFIDENCE = 0.5
-
-
-
-def run_face_tracker():
-
+def run_face_tracker(margin_x, margin_y, offset_x, offset_y, sharpness, contrast, detection_confidence, tracking_confidence):
     #### Initialize mediapipe ####
-
     # For facemesh
     mp_face_mesh = mp.solutions.face_mesh
-    face_mesh = mp_face_mesh.FaceMesh(min_detection_confidence=DETECTION_CONFIDENCE, min_tracking_confidence=TRACKING_CONFIDENCE)
+    face_mesh = mp_face_mesh.FaceMesh(min_detection_confidence=detection_confidence, min_tracking_confidence=tracking_confidence)
 
     # For drawing landmarks
     mp_drawing = mp.solutions.drawing_utils
@@ -37,19 +23,16 @@ def run_face_tracker():
     img_h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
     # Define boundaries (ROI)
-    roi_x_min, roi_x_max = MARGIN_X, img_w - MARGIN_X
-    roi_y_min, roi_y_max = MARGIN_Y, img_h - MARGIN_Y
+    roi_x_min, roi_x_max = margin_x, img_w - margin_x
+    roi_y_min, roi_y_max = margin_y, img_h - margin_y
     roi_w = roi_x_max - roi_x_min
     roi_h = roi_y_max - roi_y_min
 
     #### Adjusting camera properties ####
-    cap.set(cv2.CAP_PROP_SHARPNESS, SHARPNESS)
-    cap.set(cv2.CAP_PROP_CONTRAST, CONTRAST)
-
-
+    cap.set(cv2.CAP_PROP_SHARPNESS, sharpness)
+    cap.set(cv2.CAP_PROP_CONTRAST, contrast)
 
     #### Print Program Info ####
-
     print("\n\n")
     print("==== Face Tracker Module Activated ==== \n")
 
@@ -66,10 +49,7 @@ def run_face_tracker():
     print(roi_x_min, roi_x_max)
     print(roi_y_min, roi_y_max)
 
-
-
     #### Main Process ####
-
     while cap.isOpened():
         success, image = cap.read()
         if not success:
@@ -94,20 +74,18 @@ def run_face_tracker():
         #### Draw Basic Info ####
         cv2.putText(roi, f"Original Resolution: {img_w} x {img_h}", (10, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2, cv2.LINE_AA)
         cv2.putText(roi, f'Resolution: {roi_w}x{roi_h}', (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2, cv2.LINE_AA)
-        cv2.putText(roi, f'Margins X:{MARGIN_X} Y:{MARGIN_Y}', (10, 75), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2, cv2.LINE_AA)
-
+        cv2.putText(roi, f'Margins X:{margin_x} Y:{margin_y}', (10, 75), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2, cv2.LINE_AA)
 
         #### Main Face Tracking Process ####
         if results.multi_face_landmarks:
             for face_landmarks in results.multi_face_landmarks:
                 for idx, lm in enumerate(face_landmarks.landmark):
                     if idx == 33 or idx == 263 or idx == 1 or idx == 61 or idx == 291 or idx == 199:
-
                         if idx == 1: # Face Landmark 1 (Nose)
                             nose_2d = (lm.x * roi_w, lm.y * roi_h)
                             nose_3d = (lm.x * roi_w, lm.y * roi_h, lm.z * 3000)
                             # Calculate the absolute coordinates
-                            pos_x, pos_y = int(lm.x * roi_w + OFFSET_X), int(lm.y * roi_h + OFFSET_Y)
+                            pos_x, pos_y = int(lm.x * roi_w + offset_x), int(lm.y * roi_h + offset_y)
                             rel_x, rel_y = np.round(lm.x, 3), np.round(lm.y, 3)
 
                         # Calculate the absolute coordinates
@@ -184,6 +162,16 @@ def run_face_tracker():
     cap.release()
 
 
+
 # If this file is executed directly, run the function above
 if __name__ == "__main__":
-    run_face_tracker()
+
+    #### Define Constants ####
+    MARGIN_X, MARGIN_Y = 300, 50
+    OFFSET_X, OFFSET_Y = 0, 0
+    SHARPNESS = 100
+    CONTRAST = 100
+    DETECTION_CONFIDENCE = 0.5
+    TRACKING_CONFIDENCE = 0.5
+
+    run_face_tracker(MARGIN_X, MARGIN_Y, OFFSET_X, OFFSET_Y, SHARPNESS, CONTRAST, DETECTION_CONFIDENCE, TRACKING_CONFIDENCE)
