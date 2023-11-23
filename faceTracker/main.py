@@ -1,22 +1,26 @@
 from modules import faceTracker, OSCclient
+from tools import load_configs
 
-# Setup OSC client --------------------------
-OSC_IP = "127.0.0.1"  # OSC server IP
-OSC_PORT = 8282       # OSC server port
 
-# Setup face tracker ------------------------
-MARGIN_X, MARGIN_Y = 300, 50
-OFFSET_X, OFFSET_Y = 0, 0
-SHARPNESS = 100
-CONTRAST = 100
-DETECTION_CONFIDENCE = 0.5
-TRACKING_CONFIDENCE = 0.5 
+# Load configs
+configs = load_configs.load()
+UNREAL_OSC_IP = configs['UNREAL_OSC_IP'] # OSC server IP
+UNREAL_OSC_PORT = configs['UNREAL_OSC_PORT'] # OSC server port
+MARGIN_X = configs['MARGIN_X']
+MARGIN_Y = configs['MARGIN_Y']  
+OFFSET_X = configs['OFFSET_X']  
+OFFSET_Y = configs['OFFSET_Y']  
+SHARPNESS = configs['SHARPNESS']
+CONTRAST = configs['CONTRAST']
+DETECTION_CONFIDENCE = configs['DETECTION_CONFIDENCE']
+TRACKING_CONFIDENCE = configs['TRACKING_CONFIDENCE']
+
 
 
 # Main Process ------------------------------
 
 # Create OSC client
-osc_client = OSCclient.create_osc_client(OSC_IP, OSC_PORT)
+osc_client = OSCclient.create_osc_client(UNREAL_OSC_IP, UNREAL_OSC_PORT)
 
 # Run face tracker
 faceTracker.run_face_tracker(MARGIN_X, MARGIN_Y, OFFSET_X, OFFSET_Y, SHARPNESS, CONTRAST, DETECTION_CONFIDENCE, TRACKING_CONFIDENCE, osc_client)

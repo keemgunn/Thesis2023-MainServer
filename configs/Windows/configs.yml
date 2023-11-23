@@ -1,0 +1,29 @@
+
+# SERVER CONFIGS ------------------------------------
+
+INTERNAL_IP: "126.126.0.10"
+  # TLS Certificate must comply with this IP address.
+
+PORT_SERVER: 4040
+PORT_CLIENT: 5173
+
+UNREAL_OSC_IP: "127.0.0.1"
+UNREAL_OSC_PORT: 8282
+
+
+# FACE TRACKER CONFIGS ------------------------------
+
+MARGIN_X: 300
+MARGIN_Y: 50
+OFFSET_X: 0
+OFFSET_Y: 0
+SHARPNESS: 100
+CONTRAST: 100
+DETECTION_CONFIDENCE: 0.5
+TRACKING_CONFIDENCE: 0.5
+
+
+
+
+
+

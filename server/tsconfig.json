@@ -1,0 +1,29 @@
+{
+  "include": ["src/**/*.ts", "src/utils/tls/index.ts", "src/main.ts"],
+
+  "compilerOptions": {
+    "strict": true,
+
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext", 
+    "target": "ES2020",
+    
+    "sourceMap": true, // for debugging purposes.
+    "outDir": "dist", // for our compiled JavaScript files
+
+    // "esModuleInterop": true, // enable 'import'
+
+    "resolveJsonModule": true, // enable importing JSON files as modules.
+    "forceConsistentCasingInFileNames": true
+  },
+  "ts-node": {
+    "esm": true
+  },
+  "types": [
+    "src/**/types.ts",
+    "src/**/__types.ts",
+    "../common/types-*.ts",
+    "../client/template/**/__types.ts",
+  ],
+
+}
