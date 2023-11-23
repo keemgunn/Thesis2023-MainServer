@@ -5,8 +5,8 @@
 		}
 	],
 	"settings": {
-		"workbench.preferredLightColorTheme": "Eva Light",
-		"workbench.colorTheme": "Eva Dark",
+		"workbench.preferredLightColorTheme": "GitHub Light",
+		"workbench.colorTheme": "GitHub Light",
 		"workbench.preferredDarkColorTheme": "Eva Dark"
 	}
 }

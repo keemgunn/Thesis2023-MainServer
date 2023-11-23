@@ -158,7 +158,7 @@ while cap.isOpened():
             cv2.putText(roi, "- rot_x: " + str(np.round(rot_x,2)), (10, 150), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
             cv2.putText(roi, "- rot_y: " + str(np.round(rot_y,2)), (10, 175), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
             cv2.putText(roi, "- rot_z: " + str(np.round(rot_z,2)), (10, 200), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
-            cv2.putText(roi, "POSITION" + str(np.round(rot_z,2)), (10, 250), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+            cv2.putText(roi, "POSITION", (10, 250), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
             cv2.putText(roi, "- pos_x: " + str(pos_x), (10, 275), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
             cv2.putText(roi, "- pos_y: " + str(pos_y), (10, 300), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
             cv2.putText(roi, "- rel_x: " + str(rel_x), (10, 325), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
