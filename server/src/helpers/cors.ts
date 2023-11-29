@@ -4,6 +4,7 @@ const { MAIN_IP } = configs as Configs;
 
 const corsWhitelist: string[] = [];
 
+console.log('... Adding CORS whitelist elements');
 corsWhitelist.push(`https://${MAIN_IP}:${configs.PORT_FRONT}`);
 corsWhitelist.push(`http://${MAIN_IP}:${configs.PORT_FRONT}`);
 corsWhitelist.push(`https://${MAIN_IP}:${configs.PORT_FRONT_DEV}`);
@@ -24,8 +25,12 @@ corsWhitelist.push(`https://localhost:${configs.UNREAL_HTTP_PORT}`);
 corsWhitelist.push(`http://localhost:${configs.UNREAL_HTTP_PORT}`);
 corsWhitelist.push(`https://localhost:${configs.UNREAL_OSC_PORT}`);
 corsWhitelist.push(`http://localhost:${configs.UNREAL_OSC_PORT}`);
+console.log('... Successfully added CORS whitelist elements!');
 
-console.log(`... CORS whitelist: \n${corsWhitelist}`);
+for (let i = 0; i < corsWhitelist.length; i++) {
+    const element = corsWhitelist[i];
+    console.log(`    ${element}`);
+}
 
 export const corsOptions = {
     origin: corsWhitelist,

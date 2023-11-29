@@ -7,7 +7,7 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext", 
     "target": "ES2020",
-    // "esModuleInterop": true, // This allows "type": "module" in package.json, which allows using "import" instead of "require" in .ts files.
+    "esModuleInterop": true, // This allows "type": "module" in package.json, which allows using "import" instead of "require" in .ts files.
     
     "sourceMap": true, // for debugging purposes.
     "outDir": "dist", // for our compiled JavaScript files
