@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon --exec node --loader ts-node/esm src/main.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "run": "node dist/main.js"
   },
   "keywords": [],
   "author": "Keem Gunn",
