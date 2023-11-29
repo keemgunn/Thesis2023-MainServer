@@ -7,14 +7,13 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext", 
     "target": "ES2020",
+    // "esModuleInterop": true, // This allows "type": "module" in package.json, which allows using "import" instead of "require" in .ts files.
     
     "sourceMap": true, // for debugging purposes.
     "outDir": "dist", // for our compiled JavaScript files
 
-    // "esModuleInterop": true, // enable 'import'
-
-    "resolveJsonModule": true, // enable importing JSON files as modules.
-    "forceConsistentCasingInFileNames": true
+    // "resolveJsonModule": true, // enable importing JSON files as modules.
+    // "forceConsistentCasingInFileNames": true
   },
   "ts-node": {
     "esm": true
@@ -25,5 +24,4 @@
     "../common/types-*.ts",
     "../client/template/**/__types.ts",
   ],
-
 }
