@@ -8,24 +8,26 @@ const __dirname = path.dirname(__filename);
 
 const OS_TYPE = (process.platform === 'win32') ? 'win' : 'mac';
 
-let configs;
+let configsFile;
 try {
   console.log("... Loading configs file");
   let fileContents;
   if (OS_TYPE === 'win') {
     fileContents = fs.readFileSync(path.resolve(__dirname, '../../../configs/Windows/configs.yml'), 'utf8');
   } else {
-    fileContents = fs.readFileSync(path.resolve(__dirname, '../../../configs/Windows/configs.yml'), 'utf8');
+    fileContents = fs.readFileSync(path.resolve(__dirname, '../../../configs/MacOS/configs.yml'), 'utf8');
   }
-  configs = yaml.load(fileContents);
+  configsFile = yaml.load(fileContents);
   
   console.log("... Successfully loaded configs file!");
-  console.log(configs);
 } catch (e) {
   console.error(e);
 }
 
-export default {
-  ...(configs as object),
+const configs: any = {
+  ...configsFile as any,
   OS_TYPE,
 };
+console.log(configs);
+
+export default configs;

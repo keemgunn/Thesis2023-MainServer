@@ -21,7 +21,7 @@
   "types": [
     "src/**/types.ts",
     "src/**/__types.ts",
-    "../common/types-*.ts",
-    "../client/template/**/__types.ts",
+    // "../common/types-*.ts",
+    // "../client/template/**/__types.ts",
   ],
 }
