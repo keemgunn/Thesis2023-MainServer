@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "WIN_RUN_TRACKER": ".venv\\Scripts\\activate && cd faceTracker && ..\\.venv\\bin\\python3 main.py",
+    "WIN_RUN_TRACKER": ".venv\\Scripts\\activate && cd faceTracker && ..\\.venv\\Scripts\\python.exe main.py",
     "MAC_RUN_TRACKER": "source .venv/bin/activate && cd faceTracker && ../.venv/bin/python3 main.py",
     "RUN SERVER": "cd server && npm run RUN"
   }

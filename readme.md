@@ -12,6 +12,7 @@ The project uses the following dependencies:
 ### Package Dependencies
 
 - For `faceTracker` using python, see `requirements.txt`
+   ** make requirements: `pip freeze > requirements.txt`
 - For `server` using node.js, see `server/package.json`
 
 ## Setup
@@ -63,4 +64,38 @@ On Windows, use:
 ```bash
 cd server
 npm install
+```
+
+
+
+
+
+## Running the Project
+
+### 1. Python Virtual Environment
+
+1. Activate the virtual environment. On Unix or MacOS, use:
+
+```bash
+source .venv/bin/activate
+```
+
+On Windows, use:
+
+```
+.venv\Scripts\activate
+```
+
+2. Run the project:
+
+```bash
+python3.11.3 faceTracker.py
+```
+
+
+
+#### Windows PowerShell Execution Policy :
+
+```
+Set-ExecutionPolicy -ExecutionPolicy AllSigned -Scope CurrentUser
 ```
