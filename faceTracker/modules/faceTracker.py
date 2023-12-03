@@ -6,9 +6,7 @@ import time
 # Import the create_osc_client function from the OSCclient module
 from .OSCclient import create_osc_client
 
-
-
-def run_face_tracker(margin_x, margin_y, offset_x, offset_y, sharpness, contrast, detection_confidence, tracking_confidence, osc_client):
+def run_face_tracker(margin_x, margin_y, offset_x, offset_y, detection_confidence, tracking_confidence, osc_client):
     #### Initialize mediapipe ####
     # For facemesh
     mp_face_mesh = mp.solutions.face_mesh
@@ -30,10 +28,6 @@ def run_face_tracker(margin_x, margin_y, offset_x, offset_y, sharpness, contrast
     roi_y_min, roi_y_max = margin_y, img_h - margin_y
     roi_w = roi_x_max - roi_x_min
     roi_h = roi_y_max - roi_y_min
-
-    #### Adjusting camera properties ####
-    cap.set(cv2.CAP_PROP_SHARPNESS, sharpness)
-    cap.set(cv2.CAP_PROP_CONTRAST, contrast)
 
     #### Print Program Info ####
     print("\n\n")
@@ -179,8 +173,6 @@ if __name__ == "__main__":
     #### Define Constants ####
     MARGIN_X, MARGIN_Y = 300, 50
     OFFSET_X, OFFSET_Y = 0, 0
-    SHARPNESS = 100
-    CONTRAST = 100
     DETECTION_CONFIDENCE = 0.5
     TRACKING_CONFIDENCE = 0.5
     
@@ -189,4 +181,4 @@ if __name__ == "__main__":
     port = 8282       # Replace with the OSC server port
     osc_client = create_osc_client(ip, port)
 
-    run_face_tracker(MARGIN_X, MARGIN_Y, OFFSET_X, OFFSET_Y, SHARPNESS, CONTRAST, DETECTION_CONFIDENCE, TRACKING_CONFIDENCE, osc_client)
+    run_face_tracker(MARGIN_X, MARGIN_Y, OFFSET_X, OFFSET_Y, DETECTION_CONFIDENCE, TRACKING_CONFIDENCE, osc_client)

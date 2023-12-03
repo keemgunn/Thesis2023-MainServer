@@ -6,7 +6,7 @@
 	],
 	"settings": {
 		"workbench.preferredLightColorTheme": "GitHub Light",
-		"workbench.colorTheme": "Bluloco Dark",
+		"workbench.colorTheme": "GitHub Light",
 		"workbench.preferredDarkColorTheme": "Bluloco Dark",
 		"editor.tabSize": 2
 	}
